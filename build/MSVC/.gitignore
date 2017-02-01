@@ -1,0 +1,11 @@
+*/
+
+*.zip
+*.dll
+*.exe
+
+!getopt/
+
+!include/
+include/*
+

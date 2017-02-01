@@ -2,21 +2,21 @@
 
 set -ex
 
-IN=$1
-OUTF=$2
-OUTP=$3
+FLIF=$1
+IN=$2
+OUTF=$3
+OUTP=$4
 
 runtest() {
   local encArgs=$1
   local decArgs=$2
 
-  ./flif $encArgs "${IN}" "${OUTF}"
-  ./flif -d $decArgs ${OUTF} ${OUTP}
-  test "`compare -metric AE ${IN} ${OUTP} null 2>&1`" = "0"
+  rm -f ${OUTF} ${OUTP}
+  $FLIF $encArgs "${IN}" "${OUTF}"
+  $FLIF -d $decArgs ${OUTF} ${OUTP}
+  test "`compare -metric AE ${IN} ${OUTP} null: 2>&1`" = "0"
 }
 
-runtest 
+runtest -I
 
-runtest -i
-
-runtest -n
+runtest -N
